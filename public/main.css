@@ -1,0 +1,22 @@
+body {
+	background-color: #333021;
+	height: 100vh;
+	width: 80vw;
+
+	text-align: center;
+}
+
+.header {
+	display: flex;
+
+	align-items: center;
+}
+
+#icon {
+	height: 25vh;
+}
+
+#title {
+	font-size: 5em;
+}
+

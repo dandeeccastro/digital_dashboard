@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<link rel='stylesheet' type='text/css' href="main.css" >
+	<title></title>
+</head>
+<body>
+	<div class="header">
+		<img id='icon' src="standby.svg" alt="">
+	<h1 id="title">Stand by...</h1>
+	</div>
+	<div class="chat">
+		<iframe 
+			frameborder=0
+			height=1200
+			width=800
+			src="https://dashboard.twitch.tv/popout/u/dundeedunds/stream-manager/chat" 
+			id="dundeedunds" 
+			frameborder="0"></iframe>
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="csv.js"></script>
+</body>
+</html>
