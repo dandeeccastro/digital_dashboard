@@ -1,27 +1,87 @@
-document.getElementById('twitch-chat').hidden = true;
-
+// Instanciate socket client
 const socket = io()
 
-var status = 'standby'
-
-function changeDisplayStatus(title,icon,iframe)
+// Type of activity template constant
+const types = 
 {
-	document.getElementById('title').innerHTML = title;
+	twitch: 
+	{
+		message:"Streaming",
+		elemColor:"#673ab7",
+		imageFile:"twitch.svg",
+	},
 
-	document.getElementById('icon').src = icon;
-	
-	if (iframe === true)
-		document.getElementById('twitch-chat').hidden = !document.getElementById('twitch-chat')
+	coding:
+	{
+		message:"Coding",
+		elemColor:"#d1e7ff",
+		imageFile:"coding.png",
+	},
+
+	resting:
+	{
+		message:"Resting",
+		elemColor:"#57a4ff",
+		imageFile:"standby.svg",
+	},
+
+	gaming:
+	{
+		message:"Gaming",
+		elemColor:"	#dedede",
+		imageFile:"gaming.png",
+	},
 }
 
+// Initializing vue variables for further manipulation
+var display = 
+{
+	title: new Vue(
+	{
+		el: "#title",
+		data:{
+			message: types.resting.message,
+			elemColor: types.resting.elemColor,
+		}
+	}),
+	
+	icon: new Vue(
+	{
+		el: "#icon",
+		data: {
+			imageFile: types.resting.imageFile,
+		}
+	}),
+
+}
+
+function alterDisplay(data)
+{
+	display.title.message = data.message;
+	display.title.elemColor = data.elemColor;
+	display.icon.imageFile = data.imageFile;
+}
+
+// Listen to update event and change display accordingly
 socket.on('update',function(data)
 {
-	status = data.type;
+	var state = data.type;
 
-	if (status == 'twitch')
+	// If status is zero, state must change to resting, regardless of type
+	if (data.status == 0)
+		alterDisplay(types.resting)
+
+	// If status is 1, we change view state based on type
+	else
 	{
-		console.log('[csv.js] > User is streaming')
-		changeDisplayStatus('Streaming','twitch.svg',true);
+		if (state === 'twitch')
+			alterDisplay(types.twitch)
+		else if (state === 'gaming')
+			alterDisplay(types.gaming)
+		else if (state === 'coding')
+			alterDisplay(types.coding)
+		else
+			console.log('[csv.js] > Poorly sent request, unrecognized state');
 	}
 
 });

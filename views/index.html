@@ -3,22 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel='stylesheet' type='text/css' href="main.css" >
+	<link href="https://fonts.googleapis.com/css2?family=Teko&display=swap" rel="stylesheet"> 
+	<script src="vue.min.js"></script>
 	<title></title>
 </head>
 <body>
+
 	<div class="header">
-		<img id='icon' src="standby.svg" alt="">
-	<h1 id="title">Stand by...</h1>
+		<h1 v-bind:style="{color: elemColor}" id="title">{{ message }}</h1>
 	</div>
-	<div class="chat">
-		<iframe 
-			frameborder=0
-			height=1200
-			width=800
-			src="https://dashboard.twitch.tv/popout/u/dundeedunds/stream-manager/chat" 
-			id="dundeedunds" 
-			frameborder="0"></iframe>
+
+	<div class="icon">
+		<img id='icon' v-bind:src="imageFile" alt="">
 	</div>
+
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="csv.js"></script>
 </body>
