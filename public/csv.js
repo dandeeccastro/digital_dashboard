@@ -10,27 +10,30 @@ const types =
 		elemColor:"#673ab7",
 		imageFile:"twitch.svg",
 	},
-
 	coding:
 	{
 		message:"Coding",
 		elemColor:"#d1e7ff",
 		imageFile:"coding.png",
 	},
-
 	resting:
 	{
 		message:"Resting",
 		elemColor:"#57a4ff",
 		imageFile:"standby.svg",
 	},
-
 	gaming:
 	{
 		message:"Gaming",
 		elemColor:"	#dedede",
 		imageFile:"gaming.png",
 	},
+	working:
+	{
+		message:"Working",
+		elemColor:"#2bdb83",
+		imageFile:"working.png",
+	}
 }
 
 // Initializing vue variables for further manipulation
@@ -80,6 +83,8 @@ socket.on('update',function(data)
 			alterDisplay(types.gaming)
 		else if (state === 'coding')
 			alterDisplay(types.coding)
+		else if (state === 'working')
+			alterDisplay(types.working)
 		else
 			console.log('[csv.js] > Poorly sent request, unrecognized state');
 	}
